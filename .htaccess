@@ -1,0 +1,70 @@
+#php_flag display_errors off
+
+
+RewriteEngine On
+#ErrorDocument 404 /404.html
+ErrorDocument 404 Maaf-halaman-tidak-ditemukan
+
+#front-end -
+	RewriteRule   ^beranda/?$   									index.php?menu=vberanda 
+	RewriteRule   ^tentang/?$   									index.php?menu=vtentang
+	RewriteRule   ^kontak/?$   										index.php?menu=vkontak 
+	RewriteRule   ^cara-donasi/?$   								index.php?menu=vcdonasi 
+	RewriteRule   ^donasi/?$   										index.php?menu=vdonasi 
+	RewriteRule   ^galeri/?$   										index.php?menu=vgaleri 
+	RewriteRule   ^masuk/?$   										index.php?menu=vmasuk 
+	RewriteRule   ^daftar/?$   										index.php?menu=vdaftar 
+	RewriteRule   ^konfirmasi/(.*)$		 							index.php?menu=vkonfirmasi&acak=$1 
+	RewriteRule   ^kegiatan/?$   									index.php?menu=vkegiatan 
+	
+	RewriteRule   ^keluar/?$ 										index.php?menu=logout 
+			
+
+#back-end
+	#halaman user
+		#common
+			#RewriteRule   		^user/main/?$   					user/index.php?menu=vmain 
+			RewriteRule   		^user/profil/?$   					user/index.php?menu=vprof 
+			RewriteRule   		^user/anggota/?$   					user/index.php?menu=vmanggota 
+			#riwayat 
+				RewriteRule   	^user/pendidikan-formal/?$   		user/index.php?menu=vdrpendf 
+				RewriteRule   	^user/pendidikan-informal/?$   		user/index.php?menu=vdrpendi 
+
+				RewriteRule   	^user/kepramukaan/?$   				user/index.php?menu=vdgiat 
+				RewriteRule   	^user/non-pramuka/?$   				user/index.php?menu=vdrkegnonpram 
+
+				RewriteRule   	^user/kecakapan-umum/?$   			user/index.php?menu=vdkecpumum 
+				RewriteRule   	^user/kecakapan-khusus/?$   		user/index.php?menu=vdkecpkhusus
+
+				RewriteRule   	^user/prestasi-diperoleh/?$   		user/index.php?menu=vdrprestasi
+				RewriteRule   	^user/jabatan-expramuka/?$   		user/index.php?menu=vdjabatan
+				RewriteRule   	^user/membina/?$   					user/index.php?menu=vdbina
+
+	#halaman admin
+		#common
+			RewriteRule   		^admin/beranda/?$ 					admin/index.php?menu=vmain 
+			RewriteRule   		^admin/anggota/?$ 					admin/index.php?menu=anggota
+			RewriteRule   		^admin/keluar/?$ 					admin/index.php?menu=logout 
+			#RewriteRule   		^admin/data-alamat/?$ 				admin/index.php?menu=vmalamat 
+
+		#setting
+			#m-tingkatan
+				RewriteRule   	^admin/golongan/?$ 					admin/index.php?menu=vmgolongan 
+				RewriteRule   	^admin/sub-golongan/?$ 				admin/index.php?menu=vmsubgolongan 
+			#m-kecakapan
+				RewriteRule   	^admin/kategori-kecakapan-khusus/?$	admin/index.php?menu=vmkatkecpkhusus 
+				RewriteRule   	^admin/kecakapan-khusus/?$			admin/index.php?menu=vmkecpkhusus 
+				RewriteRule   	^admin/kecakapan-umum/?$			admin/index.php?menu=vdkecpumum 
+			#m-kwartir
+				RewriteRule   	^admin/kwarda/?$ 					admin/index.php?menu=vmkwarda 
+				RewriteRule   	^admin/kwarcab/?$ 					admin/index.php?menu=vmkwarcab 
+				RewriteRule   	^admin/kwaran/?$ 					admin/index.php?menu=vmkwaran 
+				RewriteRule   	^admin/gudep/?$ 					admin/index.php?menu=vmgudep 
+			#m-lokasi
+				RewriteRule   	^admin/kecamatan/?$		 			admin/index.php?menu=vmkec 
+				RewriteRule   	^admin/kota/?$ 						admin/index.php?menu=vmkota 
+
+
+
+# Send all blocked request to homepage with 403 Forbidden error!
+#RewriteRule ^(.*)$ index.php [F,L]
