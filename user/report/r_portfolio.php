@@ -62,8 +62,8 @@
                 WHERE
                   l.id_mlogin ='.$_SESSION['id_mloginp'];
           // print_r($sql);exit();
-          $exe = mysql_query($sql);
-          $res = mysql_fetch_assoc($exe);
+          $exe = mysqli_query($con,$sql);
+          $res = mysqli_fetch_assoc($exe);
           // echo '<pre>';
           //   print_r($res);exit();
           // echo '</pre>';
@@ -390,8 +390,8 @@
                             a.id_mlogin ='.$_SESSION['id_mloginp'].'
                           ORDER BY
                             f.thn_masuk ASC';
-                  $exepf = mysql_query($sqlpf);
-                  while ($respf=mysql_fetch_assoc($exepf)) {
+                  $exepf = mysqli_query($con,$sqlpf);
+                  while ($respf=mysqli_fetch_assoc($exepf)) {
                   // print_r($respf);exit();
                         $out.='<tr>
                             <td>'.$respf['pendidikan'].'</td>
@@ -426,8 +426,8 @@
                             id_mlogin = '.$_SESSION['id_mloginp'].' 
                           ORDER BY 
                             pi.thn_kursus DESC';
-                  $exepi = mysql_query($sqlpi);
-                  while ($respi=mysql_fetch_assoc($exepi)) {
+                  $exepi = mysqli_query($con,$sqlpi);
+                  while ($respi=mysqli_fetch_assoc($exepi)) {
                   // print_r($respf);exit();
                         $out.='<tr>
                             <td>'.$respi['nm_kursus'].'</td>
@@ -455,8 +455,8 @@
                             left JOIN manggota ma on dkcp.id_manggota= dkcp.id_manggota
                             left JOIN msubgolongan msg on msg.id_msubgolongan = dkcp.id_msubgolongan
                           WHERE id_mlogin = '.$_SESSION['id_mloginp'];
-                  $exeku = mysql_query($sqlku);
-                  while ($resku=mysql_fetch_assoc($exeku)) {
+                  $exeku = mysqli_query($con,$sqlku);
+                  while ($resku=mysqli_fetch_assoc($exeku)) {
                 // print_r($respf);exit();
                         $out.='<tr>
                             <td>'.$resku['msubgolongan'].'</td>
@@ -484,8 +484,8 @@
                     left JOIN mkecpkhusus mkcp on mkcp.id_mkecpkhusus= dkcp.id_mkecpkhusus
                     left JOIN manggota ma on ma.id_manggota = dkcp.id_manggota
                   WHERE id_mlogin = '.$_SESSION['id_mloginp'];
-                  $exekk = mysql_query($sqlkk);
-                  while ($reskk=mysql_fetch_assoc($exekk)) {
+                  $exekk = mysqli_query($con,$sqlkk);
+                  while ($reskk=mysqli_fetch_assoc($exekk)) {
                 // print_r($respf);exit();
                         $out.='<tr>
                             <td>'.$reskk['mkecpkhusus'].'</td>
@@ -516,8 +516,8 @@
                             id_mlogin = '.$_SESSION['id_mloginp'].'
                           ORDER BY 
                             pr.thn desc';
-                  $exep = mysql_query($sqlp);
-                  while ($resp=mysql_fetch_assoc($exep)) {
+                  $exep = mysqli_query($con,$sqlp);
+                  while ($resp=mysqli_fetch_assoc($exep)) {
                 // print_r($respf);exit();
                         $out.='<tr>
                             <td>'.$resp['nm_prestasi'].'</td>
@@ -548,8 +548,8 @@
                             id_mlogin = '.$_SESSION['id_mloginp'].'
                           ORDER BY 
                             jb.tgl_lantik desc';
-                  $exejlp = mysql_query($sqljlp);
-                  while ($resjlp=mysql_fetch_assoc($exejlp)) {
+                  $exejlp = mysqli_query($con,$sqljlp);
+                  while ($resjlp=mysqli_fetch_assoc($exejlp)) {
                 // print_r($respf);exit();
                         $out.='<tr>
                             <td>'.$resjlp['nm_org'].'</td>
@@ -582,8 +582,8 @@
                           ORDER BY 
                             bn.thn_bina desc';
                           // print_r($sqlb);exit();
-                  $exeb = mysql_query($sqlb);
-                  while ($resb=mysql_fetch_assoc($exeb)) {
+                  $exeb = mysqli_query($con,$sqlb);
+                  while ($resb=mysqli_fetch_assoc($exeb)) {
                 // print_r($respf);exit();
                         $out.='<tr>
                             <td>'.$resb['keahlian'].'</td>
@@ -618,8 +618,8 @@
                           ORDER BY 
                             dr.tgl desc';
 
-                  $exekp = mysql_query($sqlkp);
-                  while ($reskp=mysql_fetch_assoc($exekp)) {
+                  $exekp = mysqli_query($con,$sqlkp);
+                  while ($reskp=mysqli_fetch_assoc($exekp)) {
                 // print_r($respf);exit();
                         $out.='<tr>
                             <td>'.$reskp['drkegpram'].'</td>
@@ -656,8 +656,8 @@
                           ORDER BY 
                             kg.tgl desc';
                   // print_r($sqlnp);exit();
-                  $exenp = mysql_query($sqlnp);
-                  while ($resnp=mysql_fetch_assoc($exenp)) {
+                  $exenp = mysqli_query($con,$sqlnp);
+                  while ($resnp=mysqli_fetch_assoc($exenp)) {
                 // print_r($respf);exit();
                         $out.='<tr>
                             <td>'.$resnp['drkegnonpram'].'</td>

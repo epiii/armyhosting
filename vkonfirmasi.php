@@ -7,12 +7,12 @@
     if(trim($id)!='' or !empty($id)){
       $sql = 'SELECT * from mlogin where acak = "'.$id.'"';
       // var_dump($sql);exit();
-      $exe = mysql_query($sql);
-      $res = mysql_fetch_assoc($exe);
-      $jum = mysql_num_rows($exe);
+      $exe = mysqli_query($con,$sql);
+      $res = mysqli_fetch_assoc($exe);
+      $jum = mysqli_num_rows($exe);
       if($jum>0){
         $sql2 ='UPDATE mlogin set isActive="y", acak="confirmed" where id_mlogin='.$res['id_mlogin'];
-        $exe2 = mysql_query($sql2);
+        $exe2 = mysqli_query($con,$sql2);
         // $out='<p class="alert alert-success">selamat berhasil terdaftar sebagai donatur  </p> ';
         $out='Anda berhasil terdaftar sebagai anggota, silahkan login ^_^ ';
       }else{

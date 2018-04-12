@@ -17,10 +17,10 @@
 			switch($menu){
 				case 'mkota':
 					$sql	= 'SELECT *  from  mkota'; //diganti
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
 
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 					// var_dump($datax);exit();
@@ -47,9 +47,9 @@
 									ko.mkota asc';
 
 					 //diganti
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 					// var_dump($datax);exit();
@@ -66,9 +66,9 @@
 								where id_mkota = '.$_GET['id_mkota']
 								;
 					 //var_dump($sql);exit();
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 					if($datax!=NULL){
@@ -92,8 +92,8 @@
 					where 
 						gp.id_mgudep='.$_GET['id_mgudep'];
 			// print_r($sql);exit();
-			$exe = mysql_query($sql);
-			$res = mysql_fetch_assoc($exe);
+			$exe = mysqli_query($con,$sql);
+			$res = mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"nomer_gudep":"'.$res['nomer_gudep'].'",
@@ -117,8 +117,8 @@
 
 
 			/*$sql = 'SELECT * from mgudep where id_mgudep = '.$_GET['id_mgudep'];
-			$exe = mysql_query($sql);
-			$res = mysql_fetch_assoc($exe);
+			$exe = mysqli_query($con,$sql);
+			$res = mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"mgudep":"'.$res['mgudep'].'"
@@ -133,39 +133,39 @@
 			# udpate : mlogin  -------------------
 			$pass='';
 			if(isset($_POST['passBTB2']) && !empty($_POST['passBTB2'])){
-				$pass.=' paswot="'.trim(mysql_real_escape_string(md5($_POST['passBTB2']))).'", ';
-				// $exe1 = mysql_query($pass);
+				$pass.=' paswot="'.trim(mysqli_real_escape_string(md5($_POST['passBTB2']))).'", ';
+				// $exe1 = mysqli_query($con,$pass);
 				// var_dump($exe1);exit();
 			}
 			#end of update : mlogin 
 
-			$sql = "UPDATE mgudep set 	nomer_gudep 	= '".mysql_real_escape_string($_POST['nomer_gudepTB'])."',
-										nama_pangkalan 	= '".mysql_real_escape_string($_POST['nama_pangkalanTB'])."',
-										tgl_berdiri 	= '".mysql_real_escape_string(tgl_indo3($_POST['tgl_berdiriTB']))."'
+			$sql = "UPDATE mgudep set 	nomer_gudep 	= '".mysqli_real_escape_string($_POST['nomer_gudepTB'])."',
+										nama_pangkalan 	= '".mysqli_real_escape_string($_POST['nama_pangkalanTB'])."',
+										tgl_berdiri 	= '".mysqli_real_escape_string(tgl_indo3($_POST['tgl_berdiriTB']))."'
 					where id_mgudep=".$_GET['id_mgudep']; //diganti
 			// print_r($sql);exit();
 			
-			$sql2 = 'UPDATE malamat set malamat 		= "'.trim(mysql_real_escape_string($_POST['malamatTB'])).'",
-										pre_malamat		= "'.trim(mysql_real_escape_string($_POST['pre_malamatTB'])).'",
-										kode_pos		= "'.trim(mysql_real_escape_string($_POST['kode_posTB'])).'",
+			$sql2 = 'UPDATE malamat set malamat 		= "'.trim(mysqli_real_escape_string($_POST['malamatTB'])).'",
+										pre_malamat		= "'.trim(mysqli_real_escape_string($_POST['pre_malamatTB'])).'",
+										kode_pos		= "'.trim(mysqli_real_escape_string($_POST['kode_posTB'])).'",
 										id_mkec 		= '.$_POST['id_mkecTB'].',
-										web 			= "'.trim(mysql_real_escape_string($_POST['webTB'])).'",
-										telp_1			= "'.trim(mysql_real_escape_string($_POST['telp_1TB'])).'",
-										telp_2			= "'.trim(mysql_real_escape_string($_POST['telp_2TB'])).'",
-										telp_3			= "'.trim(mysql_real_escape_string($_POST['telp_3TB'])).'",
-										fax 			= "'.trim(mysql_real_escape_string($_POST['faxTB'])).'"
+										web 			= "'.trim(mysqli_real_escape_string($_POST['webTB'])).'",
+										telp_1			= "'.trim(mysqli_real_escape_string($_POST['telp_1TB'])).'",
+										telp_2			= "'.trim(mysqli_real_escape_string($_POST['telp_2TB'])).'",
+										telp_3			= "'.trim(mysqli_real_escape_string($_POST['telp_3TB'])).'",
+										fax 			= "'.trim(mysqli_real_escape_string($_POST['faxTB'])).'"
 										where id_malamat='.$_POST['id_malamatH']; //diganti
-			$sql3 = 'UPDATE mlogin set 	'.$pass.' email 	= "'.trim(mysql_real_escape_string($_POST['emailTB'])).'"
+			$sql3 = 'UPDATE mlogin set 	'.$pass.' email 	= "'.trim(mysqli_real_escape_string($_POST['emailTB'])).'"
 					 						WHERE id_mlogin = '.$_SESSION['id_mloginp']; 
-			$exe  = mysql_query($sql);
+			$exe  = mysqli_query($con,$sql);
 			if(!$exe){
 				$out='{"status":"gagal ubah gudep"}';
 			}else{
-				$exe2	= mysql_query($sql2);
+				$exe2	= mysqli_query($con,$sql2);
 				if(!$exe2){
 					$out='{"status":"gagal ubah malamat"}';
 				}else{
-					$exe3	= mysql_query($sql3);
+					$exe3	= mysqli_query($con,$sql3);
 					if(!$exe3){
 						$out='{"status":"gagal ubah mlogin "}';
 					}else{
@@ -175,9 +175,9 @@
 			}
 			echo $out;
 		break;
-			/*$sql = "update  mgudep set mgudep = '".mysql_real_escape_string($_POST['mgudepTB'])."' 
+			/*$sql = "update  mgudep set mgudep = '".mysqli_real_escape_string($_POST['mgudepTB'])."' 
 					where id_mgudep=".$_GET['id_mgudep']; //diganti
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			if($exe){
 				echo '{"status":"sukses"}';
 			}else{
@@ -187,24 +187,24 @@
 		break;*/
 		#tambah  ==============================================================================================
 		case 'tambah':
-			$sql = 'INSERT into mlogin set		email			= "'.trim(mysql_real_escape_string($_POST['emailTB'])).'",
-												paswot			= "'.trim(mysql_real_escape_string($_POST['paswotTB'])).'",
+			$sql = 'INSERT into mlogin set		email			= "'.trim(mysqli_real_escape_string($_POST['emailTB'])).'",
+												paswot			= "'.trim(mysqli_real_escape_string($_POST['paswotTB'])).'",
 												level			= "gudep"'; //diganti
 
-			$exe	= mysql_query($sql);	
-			$id1	= mysql_insert_id();								
+			$exe	= mysqli_query($con,$sql);	
+			$id1	= mysqli_insert_id();								
 			
-			$sql2 = 'INSERT into malamat set	malamat 		= "'.trim(mysql_real_escape_string($_POST['malamatTB'])).'",
-												pre_malamat		= "'.trim(mysql_real_escape_string($_POST['pre_malamatTB'])).'",
-												kode_pos		= "'.trim(mysql_real_escape_string($_POST['kode_posTB'])).'",
-												id_mkec 		= '.trim(mysql_real_escape_string($_POST['id_mkecTB'])).',
-												web 			= "'.trim(mysql_real_escape_string($_POST['webTB'])).'",
-												telp_1			= "'.trim(mysql_real_escape_string($_POST['telp_1TB'])).'",
-												telp_2			= "'.trim(mysql_real_escape_string($_POST['telp_2TB'])).'",
-												telp_3			= "'.trim(mysql_real_escape_string($_POST['telp_3TB'])).'",
-												fax 			= "'.trim(mysql_real_escape_string($_POST['faxTB'])).'"';
-			$exe2	= mysql_query($sql2);
-			$id2	= mysql_insert_id();
+			$sql2 = 'INSERT into malamat set	malamat 		= "'.trim(mysqli_real_escape_string($_POST['malamatTB'])).'",
+												pre_malamat		= "'.trim(mysqli_real_escape_string($_POST['pre_malamatTB'])).'",
+												kode_pos		= "'.trim(mysqli_real_escape_string($_POST['kode_posTB'])).'",
+												id_mkec 		= '.trim(mysqli_real_escape_string($_POST['id_mkecTB'])).',
+												web 			= "'.trim(mysqli_real_escape_string($_POST['webTB'])).'",
+												telp_1			= "'.trim(mysqli_real_escape_string($_POST['telp_1TB'])).'",
+												telp_2			= "'.trim(mysqli_real_escape_string($_POST['telp_2TB'])).'",
+												telp_3			= "'.trim(mysqli_real_escape_string($_POST['telp_3TB'])).'",
+												fax 			= "'.trim(mysqli_real_escape_string($_POST['faxTB'])).'"';
+			$exe2	= mysqli_query($con,$sql2);
+			$id2	= mysqli_insert_id();
 
 			#sing anyar
 			$sql3 ='INSERT into mgudep set	id_mlogin		= '.$id1.',
@@ -215,11 +215,11 @@
 														join malamat al on al.id_malamat = kr.id_malamat
 													WHERE id_mkec = '.$_POST['id_mkotaTB'].'
 											),
-											tgl_berdiri		= "'.trim(mysql_real_escape_string(tgl_indo3($_POST['tgl_berdiriTB']))).'",
-											nama_pangkalan	= "'.trim(mysql_real_escape_string($_POST['nama_pangkalanTB'])).'",
-											nomer_gudep		= "'.trim(mysql_real_escape_string($_POST['nomer_gudepTB'])).'"';												
+											tgl_berdiri		= "'.trim(mysqli_real_escape_string(tgl_indo3($_POST['tgl_berdiriTB']))).'",
+											nama_pangkalan	= "'.trim(mysqli_real_escape_string($_POST['nama_pangkalanTB'])).'",
+											nomer_gudep		= "'.trim(mysqli_real_escape_string($_POST['nomer_gudepTB'])).'"';												
 		  	// var_dump($sql3);exit();
-			$exe3	= mysql_query($sql3);
+			$exe3	= mysqli_query($con,$sql3);
 			// var_dump($exe2);exit();
 
 			// var_dump($sql3);exit();
@@ -236,7 +236,7 @@
 			
 		
 			// $sql	= "DELETE from mlogin where id_mlogin ="$_SESSION['id_mloginp'];
-			// $exe	= mysql_query($sql);
+			// $exe	= mysqli_query($con,$sql);
 			
 			// if($exe){
 			// 	echo '{"status":"sukses"}';
@@ -247,7 +247,7 @@
 
 		case 'hapus':
 			$sql	= 'DELETE from mgudep where id_mgudep ='.$_GET['id_mgudep'];
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			// var_dump($f);exit();
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -307,7 +307,7 @@
 			
 			#ada data
 			$out='';
-			if(mysql_num_rows($result)!=0)
+			if(mysqli_num_rows($result)!=0)
 			{
 				if ($_SESSION['levelp']=='kwarda' or $_SESSION['levelp']=='kwarcab') {
 					$disabled = '';
@@ -316,7 +316,7 @@
 				}
 				// <a	 class="btn" href="javascript:hapusmkwarcab('.$res['id_mkwarcab'].');" role="button"><i class="icon-remove"></i></a>
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_assoc($result)){	
+				while($res = mysqli_fetch_assoc($result)){	
 						$btn= '<td  disabled="'.$disabled.'">
 									 <button '.$disabled.' class="btn" onclick="editmgudep('.$res['id_mgudep'].');" ><i class="icon-pencil"></i></button>
 									 <button '.$disabled.' class="btn" onclick="hapusmgudep('.$res['id_mgudep'].');" ><i class="icon-remove"></i></button>

@@ -29,9 +29,9 @@
 								 	kk.cum,m3.msubunsur3 asc '; 
 
 					// print_r($sql);exit();	
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 					// print_r($datax);exit();
@@ -45,9 +45,9 @@
 				case 'subkatkeg':
 					$sql	= '	SELECT * from subkatkeg order by subkatkeg ';
 					// print_r($sql);exit();	
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 					// print_r($datax);exit();
@@ -61,9 +61,9 @@
 				case 'mbukeg':
 					$sql	= '	SELECT * from mbukeg order by mbukeg ';
 					// print_r($sql);exit();	
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 					// print_r($datax);exit();
@@ -80,8 +80,8 @@
 		case 'ambiledit':
 			$sql = 'SELECT * FROM mkota WHERE id_mkota ='.$_GET['id_mkota'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"mkota":"'.$res['mkota'].'"
@@ -93,19 +93,19 @@
 				
 		#ubah  ==============================================================================================
 		case 'ubah':
-			$sql = 'UPDATE  mkota set 	mkota	= "'.mysql_real_escape_string($_POST['mkotaTB']).'"
+			$sql = 'UPDATE  mkota set 	mkota	= "'.mysqli_real_escape_string($_POST['mkotaTB']).'"
 										WHERE id_mkota 	= '.$_GET['id_mkota'];
 			// print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
 
 		#tambah  ==============================================================================================
 		case 'tambah':
-			$sql = 'INSERT into mkota set mkota= "'.mysql_real_escape_string(trim($_POST['mkotaTB'])).'"';
+			$sql = 'INSERT into mkota set mkota= "'.mysqli_real_escape_string(trim($_POST['mkotaTB'])).'"';
 			// print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
@@ -114,7 +114,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from mkota  where id_mkota  ='.$_GET['id_mkota'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo  $out;
 		break;
@@ -138,11 +138,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ='<td>
 								 <a class="btn btn-secondary" href="javascript:editmkota(\''.$res['id_mkota'].'\');" 
 								 role="button"><i class="icon-pencil"></i></a>

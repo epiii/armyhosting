@@ -18,10 +18,10 @@
 			switch($menu){
 				case 'mkatkecpkhusus':
 					$sql	= 'SELECT *  from mkatkecpkhusus order by mkatkecpkhusus asc'; //diganti
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
 
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 
@@ -46,8 +46,8 @@
 					WHERE 	mk.id_mkecpkhusus ='.$_GET['id_mkecpkhusus'];
 
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"id_mkatkecpkhusus":"'.$res['id_mkatkecpkhusus'].'",
@@ -60,11 +60,11 @@
 				 
 		#ubah  ==============================================================================================
 		case 'ubah':
-			$sql = 'UPDATE  mkecpkhusus set id_mkatkecpkhusus	= "'.mysql_real_escape_string($_POST['id_mkatkecpkhususTB']).'",
-											mkecpkhusus			= "'.mysql_real_escape_string($_POST['mkecpkhususTB']).'"
+			$sql = 'UPDATE  mkecpkhusus set id_mkatkecpkhusus	= "'.mysqli_real_escape_string($_POST['id_mkatkecpkhususTB']).'",
+											mkecpkhusus			= "'.mysqli_real_escape_string($_POST['mkecpkhususTB']).'"
 										WHERE id_mkecpkhusus 	= '.$_GET['id_mkecpkhusus'];
 			// print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
@@ -72,9 +72,9 @@
 		#tambah  ==============================================================================================
 		case 'tambah':
 			$sql = 'INSERT into mkecpkhusus set	id_mkatkecpkhusus= '.$_POST['id_mkatkecpkhususTB'].',
-												mkecpkhusus 	 = "'.mysql_real_escape_string(trim($_POST['mkecpkhususTB'])).'"';
+												mkecpkhusus 	 = "'.mysqli_real_escape_string(trim($_POST['mkecpkhususTB'])).'"';
 			//print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
@@ -83,7 +83,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from mkecpkhusus  where id_mkecpkhusus  ='.$_GET['id_mkecpkhusus'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo  $out;
 		break;
@@ -113,11 +113,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ='<td>
 								 <a class="btn btn-secondary" href="javascript:editmkecpkhusus(\''.$res['id_mkecpkhusus'].'\');" 
 								 role="button"><i class="icon-pencil"></i></a>

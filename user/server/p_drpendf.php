@@ -17,9 +17,9 @@
 			switch($menu){
 				case 'dsubpendf':
 					$sql	= 'SELECT * FROM  dsubpendf ORDER BY fakultas asc';
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 
@@ -40,9 +40,9 @@
 
 				case 'mkota':
 					$sql	= 'SELECT * FROM  mkota ORDER BY mkota asc';
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 
@@ -63,9 +63,9 @@
 
 				case 'mkec':
 					$sql	= 'SELECT * FROM  mkec where  id_mkota='.$_GET['id_mkota'].' ORDER BY mkec ASC';
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 
@@ -109,8 +109,8 @@
 						pf.id_drpendf = '.$_GET['id_drpendf'];
 
 			// print_r($sql);exit();
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"pendidikan":"'.$res['pendidikan'].'",
@@ -136,27 +136,27 @@
 		#ubah  ==============================================================================================
 		case 'ubah':
 			$sql1 = 'UPDATE malamat set	id_mkec  		= '.$_POST['id_mkecTB'].',
-										pre_malamat 	= "'.mysql_real_escape_string($_POST['pre_malamatTB']).'",		
-										malamat			= "'.mysql_real_escape_string($_POST['malamatTB']).'"
+										pre_malamat 	= "'.mysqli_real_escape_string($_POST['pre_malamatTB']).'",		
+										malamat			= "'.mysqli_real_escape_string($_POST['malamatTB']).'"
 								WHERE id_malamat 		= '.$_POST['id_malamatH'];
-			// $id1 	= mysql_insert_id();
+			// $id1 	= mysqli_insert_id();
 
-			$exe1		= mysql_query($sql1);
-			$id_malamat	= mysql_insert_id();
+			$exe1		= mysqli_query($con,$sql1);
+			$id_malamat	= mysqli_insert_id();
 
 			$id_dsubpendf= ($_POST['id_dsubpendfTB']!='')?' id_dsubpendf ='.$_POST['id_dsubpendfTB'].', ':'';
-			$sql2 = 'UPDATE  drpendf set	pendidikan 		= "'.mysql_real_escape_string($_POST['pendidikanTB']).'",		
-											nm_instansi		= "'.mysql_real_escape_string($_POST['nm_instansiTB']).'",
-											no_ijazah 		= "'.mysql_real_escape_string($_POST['no_ijazahTB']).'",
-											thn_masuk 		= "'.mysql_real_escape_string($_POST['thn_masukTB']).'",
-											thn_lulus 		= "'.mysql_real_escape_string($_POST['thn_lulusTB']).'",
-											kelas			= "'.mysql_real_escape_string($_POST['kelasTB']).'",
+			$sql2 = 'UPDATE  drpendf set	pendidikan 		= "'.mysqli_real_escape_string($_POST['pendidikanTB']).'",		
+											nm_instansi		= "'.mysqli_real_escape_string($_POST['nm_instansiTB']).'",
+											no_ijazah 		= "'.mysqli_real_escape_string($_POST['no_ijazahTB']).'",
+											thn_masuk 		= "'.mysqli_real_escape_string($_POST['thn_masukTB']).'",
+											thn_lulus 		= "'.mysqli_real_escape_string($_POST['thn_lulusTB']).'",
+											kelas			= "'.mysqli_real_escape_string($_POST['kelasTB']).'",
 											'.$id_dsubpendf.',
-											no_induk		= "'.mysql_real_escape_string($_POST['no_indukTB']).'"
+											no_induk		= "'.mysqli_real_escape_string($_POST['no_indukTB']).'"
 										WHERE  id_dsubpendf ='.$_GET['id_dsubpendf'];
 
-			$exe1	= mysql_query($sql1);
-			$exe2	= mysql_query($sql2);
+			$exe1	= mysqli_query($con,$sql1);
+			$exe2	= mysqli_query($con,$sql2);
 			// var_dump($sql2);exit();
 			if($exe1 and $exe2){
 				echo '{"status":"sukses"}';
@@ -167,28 +167,28 @@
 		#tambah  ==============================================================================================
 		case 'tambah':
 			$sql1 = 'INSERT into malamat set	id_mkec  		= '.$_POST['id_mkecTB'].',
-												pre_malamat 	= "'.mysql_real_escape_string($_POST['pre_malamatTB']).'",		
-												malamat			= "'.mysql_real_escape_string($_POST['malamatTB']).'"';
-			$exe1		= mysql_query($sql1);
-			$id_malamat	= mysql_insert_id();
+												pre_malamat 	= "'.mysqli_real_escape_string($_POST['pre_malamatTB']).'",		
+												malamat			= "'.mysqli_real_escape_string($_POST['malamatTB']).'"';
+			$exe1		= mysqli_query($con,$sql1);
+			$id_malamat	= mysqli_insert_id();
 
-			$r = mysql_fetch_assoc(mysql_query('SELECT id_manggota from manggota where id_mlogin = '.$_SESSION['id_mloginp']));
+			$r = mysqli_fetch_assoc(mysqli_query($con,'SELECT id_manggota from manggota where id_mlogin = '.$_SESSION['id_mloginp']));
 			if(!$exe1){
 				$out='{"status":"gagal simpan alamat"}';
 			}else{
 				$id_dsubpendf = ($_POST['id_dsubpendfTB']!='')?' id_dsubpendf ='.$_POST['id_dsubpendfTB'].', ':'';
-				$sql2         = 'INSERT into drpendf set	pendidikan 	= "'.mysql_real_escape_string($_POST['pendidikanTB']).'",		
-													nm_instansi		= "'.mysql_real_escape_string($_POST['nm_instansiTB']).'",
-													no_ijazah 		= "'.mysql_real_escape_string($_POST['no_ijazahTB']).'",
-													thn_masuk 		= "'.mysql_real_escape_string($_POST['thn_masukTB']).'",
-													thn_lulus 		= "'.mysql_real_escape_string($_POST['thn_lulusTB']).'",
-													kelas			= "'.mysql_real_escape_string($_POST['kelasTB']).'",
+				$sql2         = 'INSERT into drpendf set	pendidikan 	= "'.mysqli_real_escape_string($_POST['pendidikanTB']).'",		
+													nm_instansi		= "'.mysqli_real_escape_string($_POST['nm_instansiTB']).'",
+													no_ijazah 		= "'.mysqli_real_escape_string($_POST['no_ijazahTB']).'",
+													thn_masuk 		= "'.mysqli_real_escape_string($_POST['thn_masukTB']).'",
+													thn_lulus 		= "'.mysqli_real_escape_string($_POST['thn_lulusTB']).'",
+													kelas			= "'.mysqli_real_escape_string($_POST['kelasTB']).'",
 													id_malamat		= '.$id_malamat.',
 													id_manggota 	= '.$r['id_manggota'].',
 													'.$id_dsubpendf.'
-													no_induk		= "'.mysql_real_escape_string($_POST['no_indukTB']).'"';
+													no_induk		= "'.mysqli_real_escape_string($_POST['no_indukTB']).'"';
 				// var_dump($sql2);exit();
-				$exe2         = mysql_query($sql2);
+				$exe2         = mysqli_query($con,$sql2);
 				if (!$exe2) {
 					$out='{"status":"gagal simpan pend formal"}';
 				} else {
@@ -202,7 +202,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from drpendf where id_drpendf ='.$_GET['id_drpendf'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -254,10 +254,10 @@
 			$obj 	= new pagination_class($menu,$sql,$starting,$recpage);
 			$result =$obj->result;
 
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			if($jum!=0){	
 				$nox	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ="	 <td>
 								 <a class='btn btn-secondary' href=\"javascript:editGol('$res[id_drpendf]');\" 
 								 role='button'><i class='icon-pencil'></i></a>

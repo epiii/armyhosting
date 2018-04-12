@@ -14,9 +14,10 @@
     }else{
       if(isset($_POST['emailTB'])){
         $sql = 'SELECT * FROM mlogin WHERE email="'.$_POST['emailTB'].'"';
-        $exe = mysql_query($sql);
-        $res = mysql_fetch_assoc($exe);
-        $jum = mysql_num_rows($exe);
+        $exe = mysqli_query($con,$sql);
+        $res = mysqli_fetch_assoc($exe);
+        $jum = mysqli_num_rows($exe);
+
 
         if($res['isActive']=='n'){
           $info.='<p class="alert alert-warning">silahkan cek email untuk konfirmasi pendaftaran <a target="_blank" href="http://'.$_POST['emailTB'].'">'.$_POST['emailTB'].'</a></p>';
@@ -26,6 +27,7 @@
             $_SESSION['emaily']=$_POST['emailTB'];
             header('Location:masuk');
           }else{  //belum terdaftar
+    // var_dump($jum);exit();
               $reg='<p class="alert alert-warning">
                       <i class="glyphicon glyphicon-warning-sign"></i> 
                       maaf email belum terdaftar,

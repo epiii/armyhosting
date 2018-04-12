@@ -16,8 +16,8 @@
 		case 'ambiledit':
 			$sql = 'SELECT * FROM mkatkecpkhusus WHERE id_mkatkecpkhusus ='.$_GET['id_mkatkecpkhusus'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"mkatkecpkhusus":"'.$res['mkatkecpkhusus'].'"
@@ -29,10 +29,10 @@
 				
 		#ubah  ==============================================================================================
 		case 'ubah':
-			$sql = 'UPDATE  mkatkecpkhusus set 	mkatkecpkhusus	= "'.mysql_real_escape_string($_POST['mkatkecpkhususTB']).'"
+			$sql = 'UPDATE  mkatkecpkhusus set 	mkatkecpkhusus	= "'.mysqli_real_escape_string($_POST['mkatkecpkhususTB']).'"
 										WHERE id_mkatkecpkhusus 	= '.$_GET['id_mkatkecpkhusus'];
 			// print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
@@ -40,9 +40,9 @@
 		#tambah  ==============================================================================================
 		case 'tambah':
 			$sql = 'INSERT into mkatkecpkhusus set 	
-													mkatkecpkhusus= "'.mysql_real_escape_string(trim($_POST['mkatkecpkhususTB'])).'"';
+													mkatkecpkhusus= "'.mysqli_real_escape_string(trim($_POST['mkatkecpkhususTB'])).'"';
 			//print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
@@ -51,7 +51,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from mkatkecpkhusus  where id_mkatkecpkhusus  ='.$_GET['id_mkatkecpkhusus'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo  $out;
 		break;
@@ -75,11 +75,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ='<td>
 								 <a class="btn btn-secondary" href="javascript:editmkatkecpkhusus(\''.$res['id_mkatkecpkhusus'].'\');" 
 								 role="button"><i class="icon-pencil"></i></a>

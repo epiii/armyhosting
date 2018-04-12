@@ -17,9 +17,9 @@
 			switch($menu){
 				case 'mkecpkhusus':
 					$sql	= 'SELECT * FROM  mkecpkhusus ORDER BY mkecpkhusus asc';
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 
@@ -40,9 +40,9 @@
 
 				case 'manggota':
 					$sql	= 'SELECT * FROM  manggota ORDER BY full_anggota asc';
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 
@@ -75,8 +75,8 @@
 						dkcp.id_drkecpkhusus = '.$_GET['id_drkecpkhusus'];
 
 			//print_r($sql);exit();
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"id_mkecpkhusus":"'.$res['id_mkecpkhusus'].'",
@@ -94,15 +94,15 @@
 		#ubah  ==============================================================================================
 		case 'ubah':
 			$sql1 = 'UPDATE drkecpkhusus set	id_mkecpkhusus  	= '.$_POST['mkecpkhususTB'].',
-												no_sertifikat		= "'.mysql_real_escape_string($_POST['no_sertifikatTB']).'",		
-												level				= "'.mysql_real_escape_string($_POST['levelTB']).'",
-												tgl					= "'.mysql_real_escape_string(tgl_indo3($_POST['tglTB'])).'",
-												ketergn				= "'.mysql_real_escape_string($_POST['ketergnTB']).'"
+												no_sertifikat		= "'.mysqli_real_escape_string($_POST['no_sertifikatTB']).'",		
+												level				= "'.mysqli_real_escape_string($_POST['levelTB']).'",
+												tgl					= "'.mysqli_real_escape_string(tgl_indo3($_POST['tglTB'])).'",
+												ketergn				= "'.mysqli_real_escape_string($_POST['ketergnTB']).'"
 												WHERE id_drkecpkhusus 	= '.$_GET['id_drkecpkhusus'];
 												// id_manggota 		= '.$_POST['full_anggotaTB'].',
-			// $id1 	= mysql_insert_id();
+			// $id1 	= mysqli_insert_id();
 
-			$exe1		= mysql_query($sql1);
+			$exe1		= mysqli_query($con,$sql1);
 			// var_dump($sql2);exit();
 			if($exe1){
 				echo '{"status":"sukses"}';
@@ -113,13 +113,13 @@
 		#tambah  ==============================================================================================
 		case 'tambah':
 			$sql1 = 'INSERT into drkecpkhusus set	id_mkecpkhusus= '.$_POST['mkecpkhususTB'].',
-													no_sertifikat = "'.mysql_real_escape_string($_POST['no_sertifikatTB']).'",		
-													level         = "'.mysql_real_escape_string($_POST['levelTB']).'",
-													tgl           = "'.mysql_real_escape_string(tgl_indo3($_POST['tglTB'])).'",
+													no_sertifikat = "'.mysqli_real_escape_string($_POST['no_sertifikatTB']).'",		
+													level         = "'.mysqli_real_escape_string($_POST['levelTB']).'",
+													tgl           = "'.mysqli_real_escape_string(tgl_indo3($_POST['tglTB'])).'",
 													id_manggota   = (SELECT id_manggota FROM manggota WHERE id_mlogin= '.$_SESSION['id_mloginp'].'),
-													ketergn       = "'.mysql_real_escape_string($_POST['ketergnTB']).'"';
+													ketergn       = "'.mysqli_real_escape_string($_POST['ketergnTB']).'"';
 			// print_r($sql1);exit();
-			$exe1		= mysql_query($sql1);
+			$exe1		= mysqli_query($con,$sql1);
 			if($exe1){
 				echo '{"status":"sukses"}';
 			}else{
@@ -131,7 +131,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from drkecpkhusus where id_drkecpkhusus ='.$_GET['id_drkecpkhusus'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -174,10 +174,10 @@
 			$obj 	= new pagination_class($menu,$sql,$starting,$recpage);
 			$result =$obj->result;
 
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			if($jum!=0){	
 				$nox	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ="	 <td>
 								 <a class='btn btn-secondary' href=\"javascript:edittombol('$res[id_drkecpkhusus]');\" 
 								 role='button'><i class='icon-pencil'></i></a>

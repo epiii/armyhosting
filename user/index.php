@@ -110,8 +110,8 @@
                                   </li>
                                   <?php
                                     $scek  = 'SELECT * from manggota where id_mlogin ='.$_SESSION['id_mloginp'];
-                                    $excek = mysql_query($scek);
-                                    $jumcek= mysql_num_rows($excek);
+                                    $excek = mysqli_query($con,$scek);
+                                    $jumcek= mysqli_num_rows($excek);
                                     if ($jumcek>0) {
                                   ?>
                                   <li>

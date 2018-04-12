@@ -17,9 +17,9 @@
 			switch($menu){
 				case 'mgolongan':
 					$sql	= 'SELECT * from  mgolongan';
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 					// var_dump($datax);exit();
@@ -51,8 +51,8 @@
 						dr.id_drkegpram = '.$_GET['id_drkegpram'];
 			// print_r($sql);exit();
 
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"drkegpram":"'.$res['drkegpram'].'",
@@ -75,17 +75,17 @@
 		case 'ubah':
 			$sql = "UPDATE drkegpram set 
 										id_manggota = '".$_POST['id_manggotaH']."',
-										id_mgolongan= '".mysql_real_escape_string($_POST['mgolonganTB'])."',
-										tgl			= '".tgl_indo3(mysql_real_escape_string($_POST['tglTB']))."',
-										drkegpram 	='".mysql_escape_string($_POST['drkegpramTB'])."',
-										lokasi		= '".mysql_real_escape_string($_POST['lokasiTB'])."',
-										tingkat		= '".mysql_real_escape_string($_POST['tingkatTB'])."',
-										kategori	= '".mysql_real_escape_string($_POST['kategoriTB'])."',
-										status		= '".mysql_real_escape_string($_POST['statusTB'])."',
-										ket			= '".mysql_real_escape_string($_POST['ketTB'])."'
+										id_mgolongan= '".mysqli_real_escape_string($_POST['mgolonganTB'])."',
+										tgl			= '".tgl_indo3(mysqli_real_escape_string($_POST['tglTB']))."',
+										drkegpram 	='".mysqli_escape_string($_POST['drkegpramTB'])."',
+										lokasi		= '".mysqli_real_escape_string($_POST['lokasiTB'])."',
+										tingkat		= '".mysqli_real_escape_string($_POST['tingkatTB'])."',
+										kategori	= '".mysqli_real_escape_string($_POST['kategoriTB'])."',
+										status		= '".mysqli_real_escape_string($_POST['statusTB'])."',
+										ket			= '".mysqli_real_escape_string($_POST['ketTB'])."'
 							where 		id_drkegpram	= ".$_GET['id_drkegpram'];
 			//print_r($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			if($exe){
 				echo '{"status":"sukses"}';
 			}else{
@@ -99,19 +99,19 @@
 					from manggota  
 					where 
 						id_mlogin = '.$_SESSION['id_mloginp'];
-			$r = mysql_fetch_assoc(mysql_query($sq));
+			$r = mysqli_fetch_assoc(mysqli_query($con,$sq));
 			$sql = 'INSERT into drkegpram set
-										id_mgolongan	= "'.mysql_real_escape_string($_POST['mgolonganTB']).'",
-										drkegpram 	= "'.mysql_escape_string($_POST['drkegpramTB']).'",
-										tgl			= "'.tgl_indo3(mysql_real_escape_string($_POST['tglTB'])).'",
-										lokasi		= "'.mysql_real_escape_string($_POST['lokasiTB']).'",
-										tingkat		= "'.mysql_real_escape_string($_POST['tingkatTB']).'",
-										kategori	= "'.mysql_real_escape_string($_POST['kategoriTB']).'",
-										status		= "'.mysql_real_escape_string($_POST['statusTB']).'",
-										ket			= "'.mysql_real_escape_string($_POST['ketTB']).'",
+										id_mgolongan	= "'.mysqli_real_escape_string($_POST['mgolonganTB']).'",
+										drkegpram 	= "'.mysqli_escape_string($_POST['drkegpramTB']).'",
+										tgl			= "'.tgl_indo3(mysqli_real_escape_string($_POST['tglTB'])).'",
+										lokasi		= "'.mysqli_real_escape_string($_POST['lokasiTB']).'",
+										tingkat		= "'.mysqli_real_escape_string($_POST['tingkatTB']).'",
+										kategori	= "'.mysqli_real_escape_string($_POST['kategoriTB']).'",
+										status		= "'.mysqli_real_escape_string($_POST['statusTB']).'",
+										ket			= "'.mysqli_real_escape_string($_POST['ketTB']).'",
 										id_manggota='.$r['id_manggota'];
 			// print_r($sql);exit();
-			$exe		= mysql_query($sql);
+			$exe		= mysqli_query($con,$sql);
 			if($exe){
 				echo '{"status":"sukses"}';
 			}else{
@@ -123,7 +123,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from drkegpram where id_drkegpram ='.$_GET['id_drkegpram'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -172,10 +172,10 @@
 			$obj 	= new pagination_class($menu,$sql,$starting,$recpage);
 			$result =$obj->result;
 
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			if($jum!=0){	
 				$nox	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ="	 <td>
 								 <a class='btn btn-secondary' href=\"javascript:editGol('$res[id_drkegpram]');\" 
 								 role='button'><i class='icon-pencil'></i></a>

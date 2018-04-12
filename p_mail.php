@@ -15,9 +15,11 @@
     $pass = rand_string(5); //password
     $acak = rand_string(20); // token
 
+    $site ='http://localhost/armyhosting';
+    
     $body='Selamat Datang di <b>Kwarda Jawa Timur (versi::army)</b> ,<br/> 
         informasi pendaftaran anda 
-        Silahkan klik link berikut ini : <a href="http://localhost/pramuka/konfirmasi/'.$acak.'">konfirmasi</a><br/>
+        Silahkan klik link berikut ini : <a href="'.$site.'/konfirmasi/'.$acak.'">konfirmasi</a><br/>
         kemudian masuk dengan akun dibawah ini  :<br/>
         email : '.$_POST['emailTB'].'<br>
         password : '.$pass.'<br>';
@@ -35,7 +37,8 @@
     $mail->Username   = "4rmyhosting@gmail.com"; // SMTP account username example
     $mail->Password   = "1tambah1=2";
     $mail->Mailer = "smtp";
-    $mail->SetFrom('4rmyhosting@gmail.com', 'Kwarda Jawa Timur');
+    $mail->SetFrom('taufikhosting@gmail.com', 'Kwarda Jawa Timur');
+    // $mail->SetFrom('4rmyhosting@gmail.com', 'Kwarda Jawa Timur');
     $mail->Subject = $subject;
     $mail->AddAddress($to, "");
     $mail->MsgHTML($body);
@@ -48,7 +51,7 @@
                                         level   = "anggota",
                                         paswot  = "'.md5($pass).'",
                                         acak    = "'.$acak.'"';
-        $exe = mysql_query($sql);
+        $exe = mysqli_query($con,$sql);
         if ($exe) {
             echo '<script>alert(\'silahkan cek email  anda '.$to.' (mungkin di folder spam)\');window.location=\'masuk\';</script>';
         }else{

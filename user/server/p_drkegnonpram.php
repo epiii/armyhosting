@@ -23,8 +23,8 @@
 						kg.id_drkegnonpram = '.$_GET['id_drkegnonpram'];
 			// print_r($sql);exit();
 
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"drkegnonpram":"'.$res['drkegnonpram'].'",
@@ -44,16 +44,16 @@
 		#ubah  ==============================================================================================
 		case 'ubah':
 			$sql = "UPDATE drkegnonpram set 
-										drkegnonpram= '".mysql_real_escape_string($_POST['drkegnonpramTB'])."',
-										tgl			= '".mysql_real_escape_string(tgl_indo3($_POST['tglTB']))."',
-										lokasi		= '".mysql_real_escape_string($_POST['lokasiTB'])."',
-										tingkat		= '".mysql_real_escape_string($_POST['tingkatTB'])."',
+										drkegnonpram= '".mysqli_real_escape_string($_POST['drkegnonpramTB'])."',
+										tgl			= '".mysqli_real_escape_string(tgl_indo3($_POST['tglTB']))."',
+										lokasi		= '".mysqli_real_escape_string($_POST['lokasiTB'])."',
+										tingkat		= '".mysqli_real_escape_string($_POST['tingkatTB'])."',
 										stus		= '".$_POST['stusTB']."',
-										plenggara	= '".mysql_real_escape_string($_POST['plenggaraTB'])."',
-										ket			= '".mysql_real_escape_string($_POST['ketTB'])."'
+										plenggara	= '".mysqli_real_escape_string($_POST['plenggaraTB'])."',
+										ket			= '".mysqli_real_escape_string($_POST['ketTB'])."'
 							where id_drkegnonpram	= ".$_GET['id_drkegnonpram'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			if($exe){
 				echo '{"status":"sukses"}';
 			}else{
@@ -63,25 +63,25 @@
 		break;
 		#tambah  ==============================================================================================
 		case 'tambah':
-			$sql = 'INSERT into drkegnonpram set drkegnonpram 	= "'.mysql_real_escape_string($_POST['drkegnonpramTB']).'",		
-												tgl				= "'.tgl_indo3(mysql_real_escape_string($_POST['tglTB'])).'",
-												lokasi 			= "'.mysql_real_escape_string($_POST['lokasiTB']).'",
-												tingkat			= "'.mysql_real_escape_string($_POST['tingkatTB']).'",
+			$sql = 'INSERT into drkegnonpram set drkegnonpram 	= "'.mysqli_real_escape_string($_POST['drkegnonpramTB']).'",		
+												tgl				= "'.tgl_indo3(mysqli_real_escape_string($_POST['tglTB'])).'",
+												lokasi 			= "'.mysqli_real_escape_string($_POST['lokasiTB']).'",
+												tingkat			= "'.mysqli_real_escape_string($_POST['tingkatTB']).'",
 												stus 			= "'.$_POST['stusTB'].'",
-												plenggara		= "'.mysql_real_escape_string($_POST['plenggaraTB']).'",
-												ket				= "'.mysql_real_escape_string($_POST['ketTB']).'",
+												plenggara		= "'.mysqli_real_escape_string($_POST['plenggaraTB']).'",
+												ket				= "'.mysqli_real_escape_string($_POST['ketTB']).'",
 												id_manggota 	= (
 														SELECT id_manggota 
 														from manggota  
 														where 
 															id_mlogin = '.$_SESSION['id_mloginp'].'
 												)';
-			// $id_malamat	= mysql_insert_id();
+			// $id_malamat	= mysqli_insert_id();
 
 
-			// $id1 	= mysql_insert_id();
+			// $id1 	= mysqli_insert_id();
 			// print_r($sql);exit();
-			$exe		= mysql_query($sql);
+			$exe		= mysqli_query($con,$sql);
 			if($exe){
 				echo '{"status":"sukses"}';
 			}else{
@@ -93,7 +93,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from drkegnonpram where id_drkegnonpram ='.$_GET['id_drkegnonpram'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -139,10 +139,10 @@
 			$obj 	= new pagination_class($menu,$sql,$starting,$recpage);
 			$result =$obj->result;
 
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			if($jum!=0){	
 				$nox	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ="	 <td>
 								 <a class='btn btn-secondary' href=\"javascript:editGol('$res[id_drkegnonpram]');\" 
 								 role='button'><i class='icon-pencil'></i></a>

@@ -27,8 +27,8 @@
                   left JOIN dasuransi i ON i.id_manggota = a.id_manggota
                 WHERE
                   l.id_mlogin ='.$_SESSION['id_mloginp'];
-          $exe = mysql_query($sql);
-          $res = mysql_fetch_assoc($exe);
+          $exe = mysqli_query($con,$sql);
+          $res = mysqli_fetch_assoc($exe);
           $out='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
             <html xmlns="http://www.w3.org/1999/xhtml">
               <head>
@@ -112,8 +112,8 @@
                         ORDER BY 
                           jb.tgl_lantik desc';                                    
                     // print_r($sql);exit();
-                    $exe = mysql_query($sql);
-                    $jum = mysql_num_rows($exe);
+                    $exe = mysqli_query($con,$sql);
+                    $jum = mysqli_num_rows($exe);
 
                   $nox = 1;
                   if($jum==0){
@@ -126,7 +126,7 @@
                       <td>-</td>
                     </tr>';
                   }else{
-                    while ($res=mysql_fetch_assoc($exe)) {
+                    while ($res=mysqli_fetch_assoc($exe)) {
                       $out.='<tr>
                             <td>'.$nox.'</td>
                             <td>'.$res['nm_org'].'</td>

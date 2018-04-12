@@ -14,14 +14,14 @@
 	switch ($aksi){
 		#ubah  ==============================================================================================
 		case 'ubah':
-			$sql = "update  kegiatan set 	katkeg	= '".mysql_real_escape_string($_POST['id_katkegTB'])."',
-											nakeg	= '".mysql_real_escape_string($_POST['nakegTB'])."',
-											poin	= '".mysql_real_escape_string($_POST['poinTB'])."',
-											bukeg	= '".mysql_real_escape_string($_POST['bukegTB'])."',
-											batut	= '".mysql_real_escape_string($_POST['batutTB'])."' 
+			$sql = "update  kegiatan set 	katkeg	= '".mysqli_real_escape_string($_POST['id_katkegTB'])."',
+											nakeg	= '".mysqli_real_escape_string($_POST['nakegTB'])."',
+											poin	= '".mysqli_real_escape_string($_POST['poinTB'])."',
+											bukeg	= '".mysqli_real_escape_string($_POST['bukegTB'])."',
+											batut	= '".mysqli_real_escape_string($_POST['batutTB'])."' 
 							where idkeg=".$_POST['idkeg'];
 			//var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			if($exe){
 				echo '{"status":"sukses"}';
 			}else{
@@ -31,13 +31,13 @@
 		break;
 		#tambah  ==============================================================================================
 		case 'tambah':
-			$sql = "insert into kegiatan set 	katkeg	= '".mysql_real_escape_string($_POST['id_katkegTB'])."',
-												nakeg	= '".mysql_real_escape_string($_POST['nakegTB'])."',
-												poin	= '".mysql_real_escape_string($_POST['poinTB'])."',
-												bukeg	= '".mysql_real_escape_string($_POST['bukegTB'])."',
-												batut	= '".mysql_real_escape_string($_POST['batutTB'])."'";
+			$sql = "insert into kegiatan set 	katkeg	= '".mysqli_real_escape_string($_POST['id_katkegTB'])."',
+												nakeg	= '".mysqli_real_escape_string($_POST['nakegTB'])."',
+												poin	= '".mysqli_real_escape_string($_POST['poinTB'])."',
+												bukeg	= '".mysqli_real_escape_string($_POST['bukegTB'])."',
+												batut	= '".mysqli_real_escape_string($_POST['batutTB'])."'";
 			#var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			if($exe){
 				echo '{"status":"sukses"}';
 			}else{
@@ -56,8 +56,8 @@
 					}				
 					$sql	= "	SELECT * from kegiatan where katkeg='$_GET[idkatkeg]' and nakeg != '' and nakeg = '$_GET[nakeg]'".$sqlx;
 					//var_dump($sql);exit();
-					$exe	= mysql_query($sql);
-					$jum 	= mysql_num_rows($exe);
+					$exe	= mysqli_query($con,$sql);
+					$jum 	= mysqli_num_rows($exe);
 					//var_dump($jum);exit();
 					if($exe){
 						if($jum>0){
@@ -75,9 +75,9 @@
 		case 'ambiledit':
 			$sql	= "	select *  from  kegiatan where 	idkeg = '$_GET[idkeg]'";
 			//var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			//var_dump($exe);exit();
-			$res	= mysql_fetch_assoc($exe);
+			$res	= mysqli_fetch_assoc($exe);
 			//var_dump($res);exit();
 			if($exe){
 				//var_dump($exe);exit();
@@ -98,7 +98,7 @@
 		#hapus ==============================================================================================
 		case 'hapus':
 			$sql	= "delete from kegiatan where idkeg ='$_GET[idkeg]'";
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			
 			//var_dump($jumz);exit();
 			if($exe){
@@ -131,11 +131,11 @@
 			#end of paging	 
 			
 			#ada data
-			if(mysql_num_rows($result)!=0)
+			if(mysqli_num_rows($result)!=0)
 			{
 				$nox 	= $starting+1;
 				//$tb	='<thead></thead><tbody>';
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ="<td>
 								<a class='btn' href=\"javascript:hapusKeg('$res[idkeg]','$res[katkeg]');\" 
 								 role='button'><i class='icon-remove'></i></a>

@@ -23,8 +23,8 @@
 						jb.id_djabatan = '.$_GET['id_djabatan'];
 			// print_r($sql);exit();
 
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"nm_org":"'.$res['nm_org'].'",
@@ -41,14 +41,14 @@
 		#ubah  ==============================================================================================
 		case 'ubah':
 			$sql = "UPDATE djabatan set 
-										nm_org 		= '".mysql_real_escape_string($_POST['nm_orgTB'])."',
-										nm_jab		= '".mysql_real_escape_string($_POST['nm_jabTB'])."',
-										tgl_lantik	= '".mysql_real_escape_string(tgl_indo3($_POST['tgl_lantikTB']))."',
-										tgl_purna	= '".mysql_real_escape_string(tgl_indo3($_POST['tgl_purnaTB']))."',
-										ket_jab		= '".mysql_real_escape_string($_POST['ket_jabTB'])."'
+										nm_org 		= '".mysqli_real_escape_string($_POST['nm_orgTB'])."',
+										nm_jab		= '".mysqli_real_escape_string($_POST['nm_jabTB'])."',
+										tgl_lantik	= '".mysqli_real_escape_string(tgl_indo3($_POST['tgl_lantikTB']))."',
+										tgl_purna	= '".mysqli_real_escape_string(tgl_indo3($_POST['tgl_purnaTB']))."',
+										ket_jab		= '".mysqli_real_escape_string($_POST['ket_jabTB'])."'
 							where 		id_djabatan	= ".$_GET['id_djabatan'];
 		//var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			if($exe){
 				echo '{"status":"sukses"}';	
 			}else{
@@ -60,11 +60,11 @@
 		#tambah  ==============================================================================================
 		case 'tambah':
 			$sql = 'INSERT into djabatan set
-											nm_org 				= "'.mysql_real_escape_string($_POST['nm_orgTB']).'",		
-											nm_jab				= "'.mysql_real_escape_string($_POST['nm_jabTB']).'",
-											tgl_lantik 			= "'.mysql_real_escape_string(tgl_indo3($_POST['tgl_lantikTB'])).'",
-											tgl_purna			= "'.mysql_real_escape_string(tgl_indo3($_POST['tgl_purnaTB'])).'",
-											ket_jab 			= "'.mysql_real_escape_string($_POST['ket_jabTB']).'",
+											nm_org 				= "'.mysqli_real_escape_string($_POST['nm_orgTB']).'",		
+											nm_jab				= "'.mysqli_real_escape_string($_POST['nm_jabTB']).'",
+											tgl_lantik 			= "'.mysqli_real_escape_string(tgl_indo3($_POST['tgl_lantikTB'])).'",
+											tgl_purna			= "'.mysqli_real_escape_string(tgl_indo3($_POST['tgl_purnaTB'])).'",
+											ket_jab 			= "'.mysqli_real_escape_string($_POST['ket_jabTB']).'",
 											id_manggota 	= (
 													SELECT id_manggota 
 													from manggota  
@@ -73,9 +73,9 @@
 												)';
 
 
-			// $id1 	= mysql_insert_id();
-			$exe		= mysql_query($sql);
-			// $id_malamat	= mysql_insert_id();
+			// $id1 	= mysqli_insert_id();
+			$exe		= mysqli_query($con,$sql);
+			// $id_malamat	= mysqli_insert_id();
 			//var_dump($sql);exit();
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -88,7 +88,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from djabatan where id_djabatan ='.$_GET['id_djabatan'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -131,10 +131,10 @@
 			$obj 	= new pagination_class($menu,$sql,$starting,$recpage);
 			$result =$obj->result;
 
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			if($jum!=0){	
 				$nox	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ="	 <td>
 								 <a class='btn btn-secondary' href=\"javascript:editGol('$res[id_djabatan]');\" 
 								 role='button'><i class='icon-pencil'></i></a>

@@ -31,9 +31,9 @@
 								order by 
 									ko.mkota asc';
 
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 
@@ -65,9 +65,9 @@
 								order by 
 									g.nama_pangkalan asc';
 					// print_r($sql);exit();
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 
@@ -99,9 +99,9 @@
 								order by 
 									kc.mkec asc';
 					// print_r($sql);exit();
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 
@@ -131,8 +131,8 @@
 						bn.id_dbina = '.$_GET['id_dbina'];
 			// print_r($sql);exit();
 
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"keahlian":"'.$res['keahlian'].'",
@@ -149,14 +149,14 @@
 		#ubah  ==============================================================================================
 		case 'ubah':
 			$sql = "UPDATE dbina set 
-										keahlian 		= '".mysql_real_escape_string($_POST['keahlianTB'])."',
-										thn_bina	= '".mysql_real_escape_string($_POST['thn_binaTB'])."',
-										thn_selesai		= '".mysql_real_escape_string($_POST['thn_selesaiTB'])."',
-										no_gudep	= '".mysql_real_escape_string($_POST['no_gudepTB'])."',
-										ket_bina		= '".mysql_real_escape_string($_POST['ket_binaTB'])."'
+										keahlian 		= '".mysqli_real_escape_string($_POST['keahlianTB'])."',
+										thn_bina	= '".mysqli_real_escape_string($_POST['thn_binaTB'])."',
+										thn_selesai		= '".mysqli_real_escape_string($_POST['thn_selesaiTB'])."',
+										no_gudep	= '".mysqli_real_escape_string($_POST['no_gudepTB'])."',
+										ket_bina		= '".mysqli_real_escape_string($_POST['ket_binaTB'])."'
 							where 		id_dbina		= ".$_GET['id_dbina'];
 		//var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			if($exe){
 				echo '{"status":"sukses"}';
 			}else{
@@ -166,11 +166,11 @@
 		break;
 		#tambah  ==============================================================================================
 		case 'tambah':
-			$sql = 'INSERT into dbina set	keahlian 			= "'.mysql_real_escape_string($_POST['keahlianTB']).'",		
-											thn_bina			= "'.mysql_real_escape_string($_POST['thn_binaTB']).'",
-											thn_selesai 		= "'.mysql_real_escape_string($_POST['thn_selesaiTB']).'",
-											no_gudep			= "'.mysql_real_escape_string($_POST['no_gudepTB']).'",
-											ket_bina 			= "'.mysql_real_escape_string($_POST['ket_binaTB']).'",
+			$sql = 'INSERT into dbina set	keahlian 			= "'.mysqli_real_escape_string($_POST['keahlianTB']).'",		
+											thn_bina			= "'.mysqli_real_escape_string($_POST['thn_binaTB']).'",
+											thn_selesai 		= "'.mysqli_real_escape_string($_POST['thn_selesaiTB']).'",
+											no_gudep			= "'.mysqli_real_escape_string($_POST['no_gudepTB']).'",
+											ket_bina 			= "'.mysqli_real_escape_string($_POST['ket_binaTB']).'",
 											id_manggota 	= (
 													SELECT id_manggota 
 													from manggota  
@@ -179,9 +179,9 @@
 												)';
 
 
-			// $id1 	= mysql_insert_id();
-			$exe		= mysql_query($sql);
-			// $id_malamat	= mysql_insert_id();
+			// $id1 	= mysqli_insert_id();
+			$exe		= mysqli_query($con,$sql);
+			// $id_malamat	= mysqli_insert_id();
 			//var_dump($sql);exit();
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -194,7 +194,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from dbina where id_dbina ='.$_GET['id_dbina'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -238,10 +238,10 @@
 			$obj 	= new pagination_class($menu,$sql,$starting,$recpage);
 			$result =$obj->result;
 
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			if($jum!=0){	
 				$nox	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ="	 <td>
 								 <a class='btn btn-secondary' href=\"javascript:editGol('$res[id_dbina]');\" 
 								 role='button'><i class='icon-pencil'></i></a>

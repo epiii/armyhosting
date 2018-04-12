@@ -133,15 +133,15 @@
                               a.full_anggota ASC';
                             // ma.id_manggota LIKE "%'.$id_manggota.'%"
                         // print_r($sql);exit();
-                        $exe = mysql_query($sql);
-                        $jum = mysql_num_rows($exe);
+                        $exe = mysqli_query($con,$sql);
+                        $jum = mysqli_num_rows($exe);
                         if ($jum<=0) {
                           $out.='<tr>
                                   <td style="text-align:center;color:red;">KOSONG</td>
                                 </tr>';
                         } else {
                           $arr = array();
-                          while ($res=mysql_fetch_assoc($exe)) {
+                          while ($res=mysqli_fetch_assoc($exe)) {
                             $arr[]=$res;
                           }
                           // echo '<pre>';

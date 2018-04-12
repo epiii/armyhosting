@@ -20,7 +20,7 @@
 										SELECT id_mlogin from manggota where id_manggota='.$_GET['id_manggota'].'
 									 )';
 			// print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			if(!$exe){
 				$out='{"status":"gagal"}';
 			}else{
@@ -50,11 +50,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					// echo '<pre>'.print_r($res),'</pre>';exit();
 					$btn ='<td>
 							 <a  class="btn" href="javascript:viewAnggotaDtl(\''.$res['id_manggota'].'\');"> <i class="icon-user"></i></a>
@@ -106,11 +106,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					// echo '<pre>'.print_r($res),'</pre>';exit();
 					$btn ='<td>
 							 <a  class="btn" href="javascript:viewAnggotaDtl(\''.$res['id_manggota'].'\');"> <i class="icon-user"></i></a>
@@ -166,11 +166,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($resku = mysql_fetch_array($result)){	
+				while($resku = mysqli_fetch_array($result)){	
 					// echo '<pre>'.print_r($res),'</pre>';exit();
 					$btn ='<td>
 							 <a  class="btn" href="javascript:viewAnggotaDtl(\''.$resku['id_manggota'].'\');"> <i class="icon-user"></i></a>
@@ -221,11 +221,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					// echo '<pre>'.print_r($res),'</pre>';exit();
 					$btn ='<td>
 							 <a  class="btn" href="javascript:viewAnggotaDtl(\''.$res['id_manggota'].'\');"> <i class="icon-user"></i></a>
@@ -275,11 +275,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					// echo '<pre>'.print_r($res),'</pre>';exit();
 					$btn ='<td>
 							 <a  class="btn" href="javascript:viewAnggotaDtl(\''.$res['id_manggota'].'\');"> <i class="icon-user"></i></a>
@@ -329,11 +329,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					// echo '<pre>'.print_r($res),'</pre>';exit();
 					$btn ='<td>
 							 <a  class="btn" href="javascript:viewAnggotaDtl(\''.$res['id_manggota'].'\');"> <i class="icon-user"></i></a>
@@ -384,11 +384,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					// echo '<pre>'.print_r($res),'</pre>';exit();
 					$btn ='<td>
 							 <a  class="btn" href="javascript:viewAnggotaDtl(\''.$res['id_manggota'].'\');"> <i class="icon-user"></i></a>
@@ -439,11 +439,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					// echo '<pre>'.print_r($res),'</pre>';exit();
 					$btn ='<td>
 							 <a  class="btn" href="javascript:viewAnggotaDtl(\''.$res['id_manggota'].'\');"> <i class="icon-user"></i></a>
@@ -496,11 +496,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					// echo '<pre>'.print_r($res),'</pre>';exit();
 					$btn ='<td>
 							 <a  class="btn" href="javascript:viewAnggotaDtl(\''.$res['id_manggota'].'\');"> <i class="icon-user"></i></a>
@@ -588,8 +588,8 @@
 						id_manggota= '.$_GET['id_manggota'];
 					// print_r($sql);exit();
 			
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 					if ($exe) {
 						echo '{
 							"id_manggota":"'.$res['id_manggota'].'",
@@ -717,11 +717,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					// var_dump($res['isActive']);exit();
 					if ($res['isActive']=='y') { // aktif 
 						$trclr  ='';
@@ -798,9 +798,9 @@
 				case 'mkota':
 					$sql	= '	SELECT * from mkota ORDER by mkota asc '; 
 					// print_r($sql);exit();	
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 					// print_r($datax);exit();
@@ -815,9 +815,9 @@
 					$where 	=empty($_GET['id_mkota'])?' id_mkec ='.$_GET['id_mkec']:' id_mkota ='.$_GET['id_mkota'];
 					// print_r($where);exit();
 					$sql	= '	SELECT * from mkec where '.$where.' order by mkec ASC ';
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 					if($datax!=NULL){
@@ -830,9 +830,9 @@
 				case 'mbukeg':
 					$sql	= '	SELECT * from mbukeg order by mbukeg ';
 					// print_r($sql);exit();	
-					$exe	= mysql_query($sql);
+					$exe	= mysqli_query($con,$sql);
 					$datax	= array();
-					while($res=mysql_fetch_assoc($exe)){
+					while($res=mysqli_fetch_assoc($exe)){
 						$datax[]=$res;
 					}
 					// print_r($datax);exit();
@@ -856,8 +856,8 @@
 						)tbk on tbk.id_mkec = a.id_mkec
 					WHERE id_malamat='.$_GET['id_malamat'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"id_mkota":"'.$res['id_mkota'].'",
@@ -879,34 +879,34 @@
 				
 		#ubah  ==============================================================================================
 		case 'ubah':
-			$sql = 'UPDATE  malamat set id_mkec			= '.mysql_real_escape_string($_POST['id_mkecTB']).',
-										malamat 		= "'.mysql_real_escape_string($_POST['malamatTB']).'",
-										kode_pos 		= '.mysql_real_escape_string($_POST['kode_posTB']).',
-										web 			= "'.mysql_real_escape_string($_POST['webTB']).'",
-										hp 	 			= '.mysql_real_escape_string($_POST['hpTB']).',
-										telp_1 			= '.mysql_real_escape_string($_POST['telp_1TB']).',
-										telp_2 			= '.mysql_real_escape_string($_POST['telp_2TB']).',
-										telp_3 			= '.mysql_real_escape_string($_POST['telp_3TB']).',
-										fax 			= '.mysql_real_escape_string($_POST['faxTB']).'
+			$sql = 'UPDATE  malamat set id_mkec			= '.mysqli_real_escape_string($_POST['id_mkecTB']).',
+										malamat 		= "'.mysqli_real_escape_string($_POST['malamatTB']).'",
+										kode_pos 		= '.mysqli_real_escape_string($_POST['kode_posTB']).',
+										web 			= "'.mysqli_real_escape_string($_POST['webTB']).'",
+										hp 	 			= '.mysqli_real_escape_string($_POST['hpTB']).',
+										telp_1 			= '.mysqli_real_escape_string($_POST['telp_1TB']).',
+										telp_2 			= '.mysqli_real_escape_string($_POST['telp_2TB']).',
+										telp_3 			= '.mysqli_real_escape_string($_POST['telp_3TB']).',
+										fax 			= '.mysqli_real_escape_string($_POST['faxTB']).'
 									WHERE id_malamat 	='.$_GET['id_malamat'];
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
 
 		#tambah  ==============================================================================================
 		case 'tambah':
-			$sql = 'INSERT into malamat set 	id_mkec			= '.mysql_real_escape_string($_POST['id_mkecTB']).',
-												malamat 		= "'.mysql_real_escape_string($_POST['malamatTB']).'",
-												kode_pos 		= '.mysql_real_escape_string($_POST['kode_posTB']).',
-												web 			= "'.mysql_real_escape_string($_POST['webTB']).'",
-												hp 	 			= '.mysql_real_escape_string($_POST['hpTB']).',
-												telp_1 			= '.mysql_real_escape_string($_POST['telp_1TB']).',
-												telp_2 			= '.mysql_real_escape_string($_POST['telp_2TB']).',
-												telp_3 			= '.mysql_real_escape_string($_POST['telp_3TB']).',
-												fax 			= '.mysql_real_escape_string($_POST['faxTB']);
+			$sql = 'INSERT into malamat set 	id_mkec			= '.mysqli_real_escape_string($_POST['id_mkecTB']).',
+												malamat 		= "'.mysqli_real_escape_string($_POST['malamatTB']).'",
+												kode_pos 		= '.mysqli_real_escape_string($_POST['kode_posTB']).',
+												web 			= "'.mysqli_real_escape_string($_POST['webTB']).'",
+												hp 	 			= '.mysqli_real_escape_string($_POST['hpTB']).',
+												telp_1 			= '.mysqli_real_escape_string($_POST['telp_1TB']).',
+												telp_2 			= '.mysqli_real_escape_string($_POST['telp_2TB']).',
+												telp_3 			= '.mysqli_real_escape_string($_POST['telp_3TB']).',
+												fax 			= '.mysqli_real_escape_string($_POST['faxTB']);
 			// print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
@@ -915,7 +915,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from malamat  where id_malamat  ='.$_GET['id_malamat'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo  $out;
 		break;

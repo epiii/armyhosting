@@ -16,8 +16,8 @@
 		case 'ambiledit':
 			$sql = 'SELECT * FROM drkecpumum WHERE id_drkecpumum ='.$_GET['id_drkecpumum'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"id_mkecpumum":"'.$res['id_mkecpumum'].'",
@@ -34,10 +34,10 @@
 				
 		#ubah  ==============================================================================================
 		case 'ubah':
-			$sql = 'UPDATE  drkecpumum set 	drkecpumum	= "'.mysql_real_escape_string($_POST['drkecpumumTB']).'"
+			$sql = 'UPDATE  drkecpumum set 	drkecpumum	= "'.mysqli_real_escape_string($_POST['drkecpumumTB']).'"
 										WHERE id_drkecpumum 	= '.$_GET['id_drkecpumum'];
 			// print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
@@ -45,16 +45,16 @@
 		#tambah  ==============================================================================================
 		case 'tambah':
 			$s= 'SELECT id_manggota from manggota where id_mlogin='.$_SESSION['id_mloginp'];
-			$q=mysql_query($s);
-			$r=mysql_fetch_assoc($q);
+			$q=mysqli_query($con,$s);
+			$r=mysqli_fetch_assoc($q);
 
 			$sql = 'INSERT into drkecpumum set 		id_msubgolongan	= "'.$_POST['id_msubgolonganB'].'",
-													tgl_pencapaian	= "'.mysql_real_escape_string(trim($_POST['tgl_pencapaianTB'])).'",
-													no_sertifikat 	= "'.mysql_real_escape_string(trim($_POST['no_sertifikatTB'])).'",
-													ketergn			= "'.mysql_real_escape_string(trim($_POST['ketergnTB'])).'",
+													tgl_pencapaian	= "'.mysqli_real_escape_string(trim($_POST['tgl_pencapaianTB'])).'",
+													no_sertifikat 	= "'.mysqli_real_escape_string(trim($_POST['no_sertifikatTB'])).'",
+													ketergn			= "'.mysqli_real_escape_string(trim($_POST['ketergnTB'])).'",
 													id_manggota		= '.$id_manggota;
 			var_dump($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
@@ -63,7 +63,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from drkecpumum  where id_drkecpumum  ='.$_GET['id_drkecpumum'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo  $out;
 		break;
@@ -87,11 +87,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ='<td>
 								 <a class="btn btn-secondary" href="javascript:editdrkecpumum(\''.$res['id_drkecpumum'].'\');" 
 								 role="button"><i class="icon-pencil"></i></a>

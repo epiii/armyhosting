@@ -13,8 +13,8 @@
 				case 'username':
 					$sql	= "select * from m_login where username = '$_POST[_un]'";
 					//var_dump($sql);exit();
-					$exe	= mysql_query($sql);
-					$jum	= mysql_num_rows($exe);
+					$exe	= mysqli_query($con,$sql);
+					$jum	= mysqli_num_rows($exe);
 					if($exe && $jum>0){
 						echo '{"status":"ada"}';
 					}else{
@@ -27,13 +27,13 @@
 		//tambah ============
 		case 'tambah':
 			//simpan user
-												// username	= '".trim(mysql_real_escape_string($_POST['_un']))."',
-				$sql1	= "insert into m_login set email	= '".trim(mysql_real_escape_string($_POST['_email']))."',
+												// username	= '".trim(mysqli_real_escape_string($_POST['_un']))."',
+				$sql1	= "insert into m_login set email	= '".trim(mysqli_real_escape_string($_POST['_email']))."',
 												password	= '".md5($_POST['_ps'])."',
 												level		= 'anggota'";
 
 				// var_dump($sql1);exit();
-				$exe1	= mysql_query($sql1);
+				$exe1	= mysqli_query($con,$sql1);
 	
 			if($exe1){
 				echo '{"status":"sukses"}';

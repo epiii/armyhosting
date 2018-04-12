@@ -23,8 +23,8 @@
 						pr.id_drprestasi = '.$_GET['id_drprestasi'];
 			 //print_r($sql);exit();
 
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"nm_prestasi":"'.$res['nm_prestasi'].'",
@@ -41,14 +41,14 @@
 		#ubah  ==============================================================================================
 		case 'ubah':
 			$sql = "UPDATE drprestasi set 
-										nm_prestasi 	= '".mysql_real_escape_string($_POST['nm_prestasiTB'])."',
-										tingkat			= '".mysql_real_escape_string($_POST['tingkatTB'])."',
-										thn				= '".mysql_real_escape_string($_POST['thnTB'])."',
-										no_sertifikat	= '".mysql_real_escape_string($_POST['no_sertifikatTB'])."',
-										ket				= '".mysql_real_escape_string($_POST['ketTB'])."'
+										nm_prestasi 	= '".mysqli_real_escape_string($_POST['nm_prestasiTB'])."',
+										tingkat			= '".mysqli_real_escape_string($_POST['tingkatTB'])."',
+										thn				= '".mysqli_real_escape_string($_POST['thnTB'])."',
+										no_sertifikat	= '".mysqli_real_escape_string($_POST['no_sertifikatTB'])."',
+										ket				= '".mysqli_real_escape_string($_POST['ketTB'])."'
 							where 		id_drprestasi		= ".$_GET['id_drprestasi'];
 		//var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			if($exe){
 				echo '{"status":"sukses"}';
 			}else{
@@ -59,11 +59,11 @@
 		#tambah  ==============================================================================================
 		case 'tambah':
 			$sql = 'INSERT into drprestasi set	
-											nm_prestasi 	= "'.mysql_real_escape_string($_POST['nm_prestasiTB']).'",		
-											tingkat			= "'.mysql_real_escape_string($_POST['tingkatTB']).'",
-											thn 			= "'.mysql_real_escape_string($_POST['thnTB']).'",
-											no_sertifikat	= "'.mysql_real_escape_string($_POST['no_sertifikatTB']).'",
-											ket 			= "'.mysql_real_escape_string($_POST['ketTB']).'",
+											nm_prestasi 	= "'.mysqli_real_escape_string($_POST['nm_prestasiTB']).'",		
+											tingkat			= "'.mysqli_real_escape_string($_POST['tingkatTB']).'",
+											thn 			= "'.mysqli_real_escape_string($_POST['thnTB']).'",
+											no_sertifikat	= "'.mysqli_real_escape_string($_POST['no_sertifikatTB']).'",
+											ket 			= "'.mysqli_real_escape_string($_POST['ketTB']).'",
 											id_manggota 	= (
 													SELECT id_manggota 
 													from manggota  
@@ -72,9 +72,9 @@
 												)';
 
 
-			// $id1 	= mysql_insert_id();
-			$exe		= mysql_query($sql);
-			// $id_malamat	= mysql_insert_id();
+			// $id1 	= mysqli_insert_id();
+			$exe		= mysqli_query($con,$sql);
+			// $id_malamat	= mysqli_insert_id();
 			//var_dump($sql);exit();
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -87,7 +87,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from drprestasi where id_drprestasi ='.$_GET['id_drprestasi'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			
 			if($exe){
 				echo '{"status":"sukses"}';
@@ -127,10 +127,10 @@
 			$obj 	= new pagination_class($menu,$sql,$starting,$recpage);
 			$result =$obj->result;
 
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			if($jum!=0){	
 				$nox	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ="	 <td>
 								 <a class='btn btn-secondary' href=\"javascript:editGol('$res[id_drprestasi]');\" 
 								 role='button'><i class='icon-pencil'></i></a>

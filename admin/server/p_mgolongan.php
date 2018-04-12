@@ -16,8 +16,8 @@
 		case 'ambiledit':
 			$sql = 'SELECT * FROM mgolongan WHERE id_mgolongan ='.$_GET['id_mgolongan'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
-			$res	= mysql_fetch_assoc($exe);
+			$exe	= mysqli_query($con,$sql);
+			$res	= mysqli_fetch_assoc($exe);
 			if($exe){
 				echo '{
 					"mgolongan":"'.$res['mgolongan'].'",
@@ -32,12 +32,12 @@
 		#ubah  ==============================================================================================
 		case 'ubah':
 			$sql = 'UPDATE  mgolongan set 	
-											mgolongan	= "'.mysql_real_escape_string($_POST['mgolonganTB']).'",
-											umur		= "'.mysql_real_escape_string($_POST['umurTB']).'",
-											urutan		= "'.mysql_real_escape_string($_POST['urutanTB']).'"
+											mgolongan	= "'.mysqli_real_escape_string($_POST['mgolonganTB']).'",
+											umur		= "'.mysqli_real_escape_string($_POST['umurTB']).'",
+											urutan		= "'.mysqli_real_escape_string($_POST['urutanTB']).'"
 										WHERE id_mgolongan 	= '.$_GET['id_mgolongan'];
 			//print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
@@ -45,12 +45,12 @@
 		#tambah  ==============================================================================================
 		case 'tambah':
 			$sql = 'INSERT into mgolongan set 
-								mgolongan= "'.mysql_real_escape_string(trim($_POST['mgolonganTB'])).'",
-								umur= "'.mysql_real_escape_string(trim($_POST['umurTB'])).'",
-								urutan= "'.mysql_real_escape_string(trim($_POST['urutanTB'])).'"
+								mgolongan= "'.mysqli_real_escape_string(trim($_POST['mgolonganTB'])).'",
+								umur= "'.mysqli_real_escape_string(trim($_POST['umurTB'])).'",
+								urutan= "'.mysqli_real_escape_string(trim($_POST['urutanTB'])).'"
 								';
 			 //print_r($sql);exit();
-			$exe = mysql_query($sql);
+			$exe = mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo $out;
 		break;
@@ -59,7 +59,7 @@
 		case 'hapus':
 			$sql	= 'DELETE from mgolongan  where id_mgolongan  ='.$_GET['id_mgolongan'];
 			// var_dump($sql);exit();
-			$exe	= mysql_query($sql);
+			$exe	= mysqli_query($con,$sql);
 			$out = ($exe)?'{"status":"sukses"}':'{"status":"gagal"}';
 			echo  $out;
 		break;
@@ -87,11 +87,11 @@
 			$result =$obj->result;
 
 			#ada data
-			$jum	= mysql_num_rows($result);
+			$jum	= mysqli_num_rows($result);
 			$out ='';
 			if($jum!=0){	
 				$nox 	= $starting+1;
-				while($res = mysql_fetch_array($result)){	
+				while($res = mysqli_fetch_array($result)){	
 					$btn ='<td>
 								 <a class="btn btn-secondary" href="javascript:editmgolongan(\''.$res['id_mgolongan'].'\');" 
 								 role="button"><i class="icon-pencil"></i></a>

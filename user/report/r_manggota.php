@@ -73,8 +73,8 @@
                           a.full_anggota ASC';
 
                   // print_r($sql);exit();
-                  $exe = mysql_query($sql);
-                  $jum = mysql_num_rows($exe);
+                  $exe = mysqli_query($con,$sql);
+                  $jum = mysqli_num_rows($exe);
                 $out.='<b>Total : '.$jum.' Orang</b>
                 <table class="isi" width="100%">
                     <tr class="head">
@@ -97,7 +97,7 @@
                       <td>-</td>
                     </tr>';
                   }else{
-                    while ($res=mysql_fetch_assoc($exe)) {
+                    while ($res=mysqli_fetch_assoc($exe)) {
                       $jk = $res['jenis_kelamin']=='L'?'Laki-laki':'Perempuan';
                       $out.='<tr>
                               <td>'.$nox.'</td>

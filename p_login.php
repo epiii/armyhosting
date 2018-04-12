@@ -6,8 +6,9 @@
 		echo '<script>window.location=\'./\'</script>';
 	}else{
 		function anti_injection($data){
-			$filter = mysql_real_escape_string(stripslashes(strip_tags(htmlspecialchars($data,ENT_QUOTES))));
-			return $filter;
+			// $filter = mysqli_real_escape_string(stripslashes(strip_tags(htmlspecialchars($data,ENT_QUOTES))));
+			// return $filter;
+			return $data;
 		}
 
 		$email = anti_injection($_POST['emailTB']);
@@ -18,10 +19,10 @@
 						mlogin 
 					WHERE  
 						paswot="'.$paswot.'" and email="'.$email.'"';
-		$login	= mysql_query($sql);
-		$ketemu	= mysql_num_rows($login);
-		$r		= mysql_fetch_assoc($login);
-		// var_dump($ketemu);exit();
+		$login	= mysqli_query($con,$sql);
+		$ketemu	= mysqli_num_rows($login);
+		$r		= mysqli_fetch_assoc($login);
+		// print_r($sql);exit();
 
 		// Apabila email dan password ditemukan
 		if ($ketemu > 0){ //ada 
@@ -33,8 +34,8 @@
 				session_start();
 
 				$sql2 ='SELECT * from m'.$r['level'].' WHERE id_mlogin ='.$r['id_mlogin'];
-				$exe2 = mysql_query($sql2);
-				$res2 =  mysql_fetch_assoc($exe2);
+				$exe2 = mysqli_query($con,$sql2);
+				$res2 =  mysqli_fetch_assoc($exe2);
 				// var_dump($res2);exit();
 				
 				$_SESSION['namap'] 		= $r['nama'];
@@ -55,7 +56,7 @@
 					if(empty($r['acak'])){
 						// $sqlc = 'UPDATE mlogin set acak="'.base64_encode($r['email']).'" where id_mlogin='.$r['id_mlogin'];
 						$sqlc = 'UPDATE mlogin set acak="confirmed" where id_mlogin='.$r['id_mlogin'];
-						$exec = mysql_query($sqlc);
+						$exec = mysqli_query($con,$sqlc);
 					}
 					header("Location:admin");
 				}else{ //user
